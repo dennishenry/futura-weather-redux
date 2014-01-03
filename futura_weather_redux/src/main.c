@@ -263,30 +263,30 @@ void window_load(Window *window) {
     futura_40 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_40));
     futura_53 = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_FUTURA_CONDENSED_53));
     
-    time_layer = text_layer_create(GRect(0, 2, 144, 168-6));
+    time_layer = text_layer_create(GRect(0, 0, 144, 60));
     text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
-    text_layer_set_background_color(time_layer, GColorClear);
-    text_layer_set_text_color(time_layer, GColorWhite);
+    text_layer_set_background_color(time_layer, GColorWhite);
+    text_layer_set_text_color(time_layer, GColorBlack);
     text_layer_set_font(time_layer, futura_53);
     layer_add_child(window_layer, text_layer_get_layer(time_layer));
     
-    date_layer = text_layer_create(GRect(1, 74, 144, 168-62));
+    date_layer = text_layer_create(GRect(0, 60, 144, 30));
     text_layer_set_text_alignment(date_layer, GTextAlignmentCenter);
-    text_layer_set_background_color(date_layer, GColorClear);
-    text_layer_set_text_color(date_layer, GColorWhite);
+    text_layer_set_background_color(date_layer, GColorWhite);
+    text_layer_set_text_color(date_layer, GColorBlack);
     text_layer_set_font(date_layer, futura_18);
     layer_add_child(window_layer, text_layer_get_layer(date_layer));
     
     
 	
-    weather_layer = layer_create(GRect(0, 90, 144, 80));
+    weather_layer = layer_create(GRect(0, 90, 144, 78));
     
-    weather_icon_layer = bitmap_layer_create(GRect(9, 13, 60, 60));
+    weather_icon_layer = bitmap_layer_create(GRect(9, 12, 60, 60));
     layer_add_child(weather_layer, bitmap_layer_get_layer(weather_icon_layer));
     
-    weather_temperature_layer = text_layer_create(GRect(70, 19, 72, 80));
+    weather_temperature_layer = text_layer_create(GRect(0, 0, 64, 60));
     text_layer_set_text_color(weather_temperature_layer, GColorWhite);
-    text_layer_set_background_color(weather_temperature_layer, GColorClear);
+    text_layer_set_background_color(weather_temperature_layer, GColorBlack);
     text_layer_set_font(weather_temperature_layer, futura_40);
     text_layer_set_text_alignment(weather_temperature_layer, GTextAlignmentRight);
     layer_add_child(weather_layer, text_layer_get_layer(weather_temperature_layer));
@@ -350,7 +350,7 @@ void deinit() {
 void handle_tick(struct tm *now, TimeUnits units_changed) {
     if(units_changed & MINUTE_UNIT) {
         static char time_text[6];
-		strftime(time_text, 6, clock_is_24h_style() ? "%H:%M" : "%I:%M", now);
+		strftime(time_text, 6, clock_is_24h_style() ? "%H:%M" : "%l:%M", now);
 		
         text_layer_set_text(time_layer, time_text);
     }
